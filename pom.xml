@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.epsi</groupId>
-	<!-- artifactId correspond au nom de votre application, 
+	<!-- artifactId correspond au nom de votre application,
 	n'hésitez pas à changer la valeur par défaut -->
 	<artifactId>jsp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -57,7 +57,7 @@
 	<build>
 		<plugins>
 			<plugin>
-				<!-- le plugin pour démarrer TomEE depuis la ligne de commande avec maven : 
+				<!-- le plugin pour démarrer TomEE depuis la ligne de commande avec maven :
 				       mvn package tomee:run
 				-->
 				<groupId>org.apache.tomee.maven</groupId>
@@ -68,6 +68,37 @@
 					<tomeeClassifier>plus</tomeeClassifier>
 				</configuration>
 			</plugin>
+			<plugin>
+      <groupId>org.codehaus.cargo</groupId>
+      <artifactId>cargo-maven2-plugin</artifactId>
+      <version>1.6.3</version>
+      <configuration>
+        <container>
+          <containerId>tomcat7x</containerId>
+          <type>remote</type>
+        </container>
+        <configuration>
+          <type>runtime</type>
+          <properties>
+            <cargo.hostname>10.111.137.228</cargo.hostname>
+            <cargo.protocol>HTTP</cargo.protocol>
+            <cargo.servlet.port>remote.port</cargo.servlet.port>
+            <cargo.remote.username>maxime</cargo.remote.username>
+            <cargo.remote.password>azerty</cargo.remote.password>
+          </properties>
+        </configuration>
+        <deployer>
+          <type>remote</type>
+          <deployables>
+            <deployable>
+              <groupId>fr.epsi</groupId>
+              <artifactId>jsp</artifactId>
+              <type>war</type>
+            </deployable>
+          </deployables>
+        </deployer>
+      </configuration>
+    </plugin>
 		</plugins>
 	</build>
 </project>
